@@ -1,7 +1,7 @@
 //hIGH LEVEL Function
 
 const asyncHandler = (requestHandler) => {
-    (req, res, next) => {
+    return (req, res, next) => {
         Promise.resolve(requestHandler(res, req, next)).catch((err) => next(err))
 
     }

@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 
 
-const useSchema = new Schema({
+const userSchema = new Schema({
     username: {
         type: String,
         required: true,
@@ -35,7 +35,7 @@ const useSchema = new Schema({
 
     watchHistory: [
         {
-            type: Schema.Type.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "Video"
         }
     ],
@@ -81,7 +81,7 @@ userSchema.method.generateRefreshToken = async function () {
 }
 userSchema.pre("save", async function () {
     if (!this.isModified("password")) return next()
-    this.password = bcrypt.hash(this.password, 10)
+    this.password = await bcrypt.hash(this.password, 10)
 })
 
 
